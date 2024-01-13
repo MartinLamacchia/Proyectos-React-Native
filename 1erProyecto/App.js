@@ -60,7 +60,7 @@ export default function App() {
         style={{
           flex: 1,
           paddingHorizontal: 15,
-          paddingTop: (Platform.OS = "android" && 30),
+          paddingTop: Platform.OS === "android" && 30,
         }}
       >
         <Text style={styles.text}>
