@@ -1,16 +1,28 @@
 import React, { FC } from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { PostImage } from '../../types'
+import { useNavigation } from '@react-navigation/native'
+import { PostImage, RootStackParams } from '../../types'
+import { format } from 'date-fns'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+type PostImageNavigationProps = NativeStackNavigationProp<RootStackParams, "Detail">
 
-const TodayImage: FC<PostImage> = ({date, title, url}) => {
+const TodayImage: FC<PostImage> = ({date, title, url, explanation}) => {
+  const {navigate} = useNavigation<PostImageNavigationProps>()
+
+  const newDate = date ? format(new Date(date), "dd/MM/yyyy") : date
+
+  const handleViewPress = () => {
+    navigate('Detail', {title, date, url, explanation})
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: url}} style={styles.image}/>
       </View>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.date}>{date}</Text>
-      <TouchableOpacity style={styles.containerButton}>
+      <Text style={styles.date}>{newDate}</Text>
+      <TouchableOpacity style={styles.containerButton} onPress={handleViewPress}>
         <Text style={styles.titleButton}>Ver</Text>
       </TouchableOpacity>
     </View>

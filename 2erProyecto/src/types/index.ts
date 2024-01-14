@@ -7,3 +7,8 @@ export type PostImage = {
   title?: string,
   url?: string
 }
+
+export type RootStackParams = {
+  Home: PostImage,
+  Detail: PostImage
+}
